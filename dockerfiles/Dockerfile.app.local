@@ -1,0 +1,32 @@
+FROM ruby:3.1.2 as base
+LABEL maintainer=kryptykphysh@kryptykphysh.xyz
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+  && apt-get update \
+  && apt-get install -yqq lsb-release \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' \
+  && curl -sS https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+  && apt-get update \
+  && apt-get install -yqq --no-install-recommends \
+  apt-transport-https \
+  build-essential \
+  nodejs \
+  postgresql-client-14 \
+  yarn \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && yarn global add tailwindcss
+
+FROM base as app
+
+WORKDIR /usr/src/app
+COPY ./Gemfile* /usr/src/app
+RUN gem update --system \
+  && gem install bundler foreman \
+  && bundle install --jobs 4
+COPY . /usr/src/app
+RUN yarn \
+  && chmod +x docker-entrypoint.sh
+ENTRYPOINT ["./docker-entrypoint.sh"]
+CMD ["./bin/rails", "s", "-b", "0.0.0.0", "-p", "3000"]

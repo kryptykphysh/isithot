@@ -1,0 +1,14 @@
+# Ignore master key secret
+.config/master.key
+
+# Node modules
+/node_modules
+
+# Git version control
+/.git
+
+# Log files
+/log/*.log
+
+# Container secrets
+/secrets

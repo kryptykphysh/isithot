@@ -1,0 +1,51 @@
+version: "3.7"
+# Core service definition
+x-core: &core
+  build:
+    context: .
+    dockerfile: ./dockerfiles/Dockerfile.app.local
+  depends_on:
+    - db
+    - redis
+  environment:
+    EnvName: development
+    NODE_ENV: development
+    POSTGRES_HOST: db
+    RAILS_ENV: development
+    RAILS_HOST: lvh.me
+    RAILS_TLD_LENGTH: 1
+  image: isithot-app
+  volumes:
+    - type: bind
+      source: .
+      target: /usr/src/app
+services:
+  css:
+    <<: *core
+    command: yarn build:css --watch
+    tty: true
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: isithot_development
+      POSTGRES_USER: isithot_admin
+      POSTGRES_PASSWORD: womble
+    ports:
+      - 5432:5432
+  guard:
+    <<: *core
+    command: bundle exec guard --no-bundler-warning --no-interactions
+    depends_on:
+      - db
+  redis:
+    image: redis:7-alpine
+  web:
+    <<: *core
+    ports:
+      - "3000:3000"
+    tty: true
+  # We're not using any background processing in this app, so this container isn't
+  # needed right now. It would be running Sidekiq, otherwise
+  # worker:
+  #   <<: *core
+  #   command: bundle exec sidekiq -C config/sidekiq.yml
