@@ -35,6 +35,45 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: temperature_definitions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.temperature_definitions (
+    id bigint NOT NULL,
+    min double precision NOT NULL,
+    max double precision NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: temperature_definitions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.temperature_definitions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: temperature_definitions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.temperature_definitions_id_seq OWNED BY public.temperature_definitions.id;
+
+
+--
+-- Name: temperature_definitions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temperature_definitions ALTER COLUMN id SET DEFAULT nextval('public.temperature_definitions_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -51,10 +90,20 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: temperature_definitions temperature_definitions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.temperature_definitions
+    ADD CONSTRAINT temperature_definitions_pkey PRIMARY KEY (id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
+INSERT INTO "schema_migrations" (version) VALUES
+('20220807110630');
 
 

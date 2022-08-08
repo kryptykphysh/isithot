@@ -1,0 +1,13 @@
+<%= tag.div id: "weather_api_form" do %>
+  <%= form_with url: weather_api_lookup_path, class: "flex flex-col space-y-3" do |form| %>
+    <%= form.hidden_field :max_warm, value: max_warm %>
+    <%= form.hidden_field :min_warm, value: min_warm %>
+    <div class="form-control mx-auto">
+      <label class="input-group input-group-lg">
+        <span>Postcode</span>
+        <%= form.text_field :postcode, class: "input input-bordered input-lg", placeholder: "Enter your postcode here" %>
+      </label>
+    </div>
+    <%= form.submit "Get Your Postcode's Weather", class: "btn btn-primary" %>
+  <% end %>
+<% end %>

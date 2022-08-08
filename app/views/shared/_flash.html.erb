@@ -1,0 +1,12 @@
+<div class="toast toast-top toast-end">
+  <div data-controller="flash" class="alert <%= key == "notice" ? "alert-success" : "alert-info" %>">
+    <div>
+      <span><%= message %></span>
+      <button type="button" data-action="flash#dismiss">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

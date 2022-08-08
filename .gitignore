@@ -39,4 +39,7 @@
 /coverage
 
 # Ignore spec examples
-/rspec/examples.txt
+/spec/examples.txt
+
+# Node modules
+/node_modules

@@ -6,7 +6,7 @@ x-core: &core
     dockerfile: ./dockerfiles/Dockerfile.app.local
   depends_on:
     - db
-    - redis
+    # - redis
   environment:
     EnvName: development
     NODE_ENV: development
@@ -37,8 +37,10 @@ services:
     command: bundle exec guard --no-bundler-warning --no-interactions
     depends_on:
       - db
-  redis:
-    image: redis:7-alpine
+    environment:
+      RAILS_ENV: test
+  # redis:
+  #   image: redis:7-alpine
   web:
     <<: *core
     ports:

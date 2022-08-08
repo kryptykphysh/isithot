@@ -1,0 +1,2 @@
+module TemperatureDefinitionsHelper
+end

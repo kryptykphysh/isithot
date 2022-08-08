@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "temperature_definition_form" do %>
+  <%= render partial: "temperature_definitions/form", locals: { temperature_definition: @temperature_definition } %>
+<% end %>
+
+<%= turbo_stream.append "flash" do %>
+  <%= render partial: "shared/flash", locals: { key: "notice", message: "New temperature definition created!" } %>
+<% end %>
+
+<%= turbo_stream.replace "weather_api_form" do %>
+  <%= render partial: "weather_api/form", locals: { max_warm: @temperature_definition.max, min_warm: @temperature_definition.min } %>
+<% end %>

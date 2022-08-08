@@ -1,0 +1,11 @@
+<% if @errors.blank? %>
+  <%= turbo_stream.replace "weather_report" do %>
+    <h1 class="mb-5 text-5xl font-bold">
+      It will be <%= weather_result %> today in <%= @postcode %> at <%= @temp %> degrees Celsius
+    </h1>
+  <% end %>
+<% end %>
+
+<% if @errors.present? %>
+  <%= turbo_stream.append "flash", partial: "shared/flash", locals: { key: "alert", message: @errors } %>
+<% end %>

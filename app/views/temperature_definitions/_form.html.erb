@@ -1,0 +1,19 @@
+<%= tag.div id: "temperature_definition_form" do %>
+  <%= form_with model: temperature_definition, url: temperature_definitions_path do |form| %>
+    <div class="form-control mx-auto">
+      <label class="input-group input-group-lg">
+        <span>Minimum "Warm" Temperature</span>
+        <%= form.text_field :min, class: "input input-bordered input-lg" %>
+        <span>Degrees Centigrade</span>
+      </label>
+    </div>
+    <div class="form-control mx-auto">
+      <label class="input-group input-group-lg">
+        <span>Maximum "Warm" Temperature</span>
+        <%= form.text_field :max, class: "input input-bordered input-lg" %>
+        <span>Degrees Centigrade</span>
+      </label>
+    </div>
+    <%= form.submit "Update Temperature Settings", class: "mt-3 btn btn-secondary" %> 
+  <% end %>
+<% end %>
