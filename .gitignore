@@ -43,3 +43,4 @@
 
 # Node modules
 /node_modules
+.yarn
